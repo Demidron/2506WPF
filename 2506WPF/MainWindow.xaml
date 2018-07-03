@@ -1,0 +1,97 @@
+﻿<Window x:Class="_2506WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2506WPF"
+        mc:Ignorable="d"
+        Title="Goods Catalog" MinHeight="650" MinWidth="800"
+        Height="650" Width="800">
+          
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Style="{StaticResource Font1}">
+            <MenuItem Header="Управление категориями" >
+                <MenuItem Header="Добавление категорий" x:Name="addCategory" Click="addCategory_Click"/>
+                <MenuItem Header="Удаление категории" x:Name="delCategory" Click="delCategory_Click"/>
+            </MenuItem>
+            <MenuItem Header="Управление производителями">
+                <MenuItem Header="Добавление производителя" x:Name="addProducer" Click="addProducer_Click"/>
+                <MenuItem Header="Удаление производителя" x:Name="delProducer" Click="delProducer_Click"/>
+            </MenuItem>
+            <MenuItem Header="Управление товарами">
+                <MenuItem Header="Добавление товара" x:Name="addProduct" Click="addProduct_Click"/>
+                <MenuItem Header="Удаление товара" x:Name="delProduct" Click="delProduct_Click"/>
+                <MenuItem Header="Изменение товара" x:Name="ChangeProduct" Click="ChangeProduct_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Top" Margin="20 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0" Source="Image/logo.png" Width="180"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="Автоматизироватный каталог товаров"
+                   Style="{StaticResource Font2}" Padding="0 10"/>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Margin="15 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="categoryList"  Grid.Column="0" Margin="5" 
+                      Style="{StaticResource Font2}" Foreground="Red"
+                      ItemsSource="{Binding Source={StaticResource categoryProvider},
+                      XPath=category}" DisplayMemberPath="@name" SelectedIndex="0"/>
+            <ComboBox x:Name="producerList"  Grid.Column="1" Margin="5" Style="{StaticResource Font2}"
+                      ItemsSource="{Binding Source={StaticResource producerProvider},
+                      XPath=Producer}" DisplayMemberPath="@name" SelectedIndex="0"/>
+            <Button x:Name="filter" Grid.Column="2" Content="Filter" Margin="5" Style="{StaticResource Font2}"
+                      Click="filter_Click"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom">
+            <Button x:Name="order" Content="Заказать товар" Style="{StaticResource Font2}" Foreground="Navy"
+                    Width="400" Height="30" Margin="0 20" Click="order_Click"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Margin="15 5">
+            <WrapPanel DataContext="{Binding ElementName=productList, Path=SelectedItem}">
+                <Label Style="{StaticResource Font2}" Foreground="DarkCyan" 
+                       Content="Наименование:"/>
+                <TextBox x:Name="name" Style="{StaticResource Font2}"
+                         Text="{Binding XPath=@name}"/>
+                <Label Style="{StaticResource Font2}" Foreground="DarkCyan" 
+                       Content="производитель:"/>
+                <TextBox x:Name="producer" Style="{StaticResource Font2}"
+                         Text="{Binding XPath=@producer}"/>
+                <Label Style="{StaticResource Font2}" Foreground="DarkCyan" 
+                       Content="Цена:"/>
+                <TextBox x:Name="price" Style="{StaticResource Font2}"
+                         Text="{Binding XPath=@price}"/>
+                <Label Style="{StaticResource Font2}" Foreground="DarkCyan" 
+                       Content="Количество:"/>
+                <TextBox x:Name="num" Style="{StaticResource Font2}"
+                       Text="{Binding XPath=@num}"/>
+            </WrapPanel>
+        </Grid>
+        <Grid x:Name="mainBox">
+            <ListView x:Name="productList" Style="{StaticResource Font2}"
+                      ItemsSource="{Binding Source={StaticResource productProvider}, XPath=Product}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="категория"
+                                        DisplayMemberBinding="{Binding XPath=@category}"/>
+                        <GridViewColumn Header="Наименование"
+                                        DisplayMemberBinding="{Binding XPath=@name}" />
+                        <GridViewColumn Header="Производитель"
+                                        DisplayMemberBinding="{Binding XPath=@producer}"/>
+                        <GridViewColumn Header="Цена"
+                                        DisplayMemberBinding="{Binding XPath=@price,StringFormat={}{0.7}}"/>
+                        <GridViewColumn Header="Количество"
+                                        DisplayMemberBinding="{Binding XPath=@num,StringFormat={}{0.7}}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        
+    </DockPanel>
+</Window>

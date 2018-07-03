@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Producer id="0" name="все производители" cid="0" />
+  <Producer id="1" name="fv" cid="1" />
+  <Producer id="2" name="adidas" cid="1" />
+  <Producer id="3" name="UkrOdegda" cid="2" />
+</root>

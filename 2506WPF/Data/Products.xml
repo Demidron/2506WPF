@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Product id="0" name="футболка" price="50" num="1000" pid="3" producer="UkrOdegda" cid="2" category="Одежда" />
+  <Product id="2" name="игрушка" price="100" num="50" pid="1" producer="fv" cid="1" category="Обувь" />
+  <Product id="3" name="кросовки" price="500" num="100" pid="2" producer="adidas" cid="1" category="Обувь" />
+</root>
